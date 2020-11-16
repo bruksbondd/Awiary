@@ -8,16 +8,15 @@
 # api keys
 .env
 .firebase
-
 .eslintrc
-.idea
+/.idea
 .eslintignore
 .prettierrc
 # testing
 /coverage
 
 # production
-/build
+
 
 # misc
 .DS_Store
