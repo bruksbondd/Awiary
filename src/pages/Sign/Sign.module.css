@@ -1,0 +1,74 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.form_box {
+  background: #fff;
+  padding: 35px 25px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.header_block {
+  color: rgba(33, 61, 128, 1);
+  font-size: 230%;
+  text-align: center;
+}
+
+.title {
+  margin-left: 10px;
+  color: rgba(33, 61, 128, 1);
+  text-decoration: none;
+}
+
+input {
+  margin-bottom: 12px;
+  width: 100%;
+  padding-left: 8px;
+
+  border: 1px solid rgba(33, 61, 128, 1);
+  border-radius: 6px;
+  line-height: 38px;
+  font-size: 14px;
+  font-weight: 500;
+
+}
+input::placeholder {
+    color: rgba(33, 61, 128, 0.3);
+}
+
+button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.submit {
+  margin: 10px 0;
+  padding: 15px 30px;
+  background: rgba(33, 61, 128, 1);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.signGoogle {
+  display: flex;
+  color: rgba(33, 61, 128, 1);
+  font-size: 16px;
+}
+
+p {
+    margin: 6px;
+}
+
+.signup {
+  margin: 0 auto;
+  text-align: center;
+  color: rgba(33, 61, 128, 1);
+  font-size: 16px;
+}

@@ -1,0 +1,21 @@
+.actionBox {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.actionItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.actionItem svg {
+    font-size: 30px;
+
+}
+
+.actionText {
+    margin-left: 10px;
+}

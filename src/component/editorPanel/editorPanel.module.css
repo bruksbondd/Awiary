@@ -1,0 +1,9 @@
+.editor_panel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.editor_panel_group button:nth-child(1) {
+    margin-right: 30px;
+}

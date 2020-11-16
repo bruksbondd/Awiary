@@ -1,0 +1,56 @@
+.blockInput {
+    position: relative;
+    background: #F9F8FB;
+    padding-top: 5px;
+    margin-top: 30px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+.inputTitle {
+    margin-left: 10px;
+    font-size: 14px;
+    color: rgba(33, 61, 128, 0.4);
+
+}
+
+.input {
+    background: #F9F8FB;
+    padding: 0 10px;
+    width: 100%;
+    margin-bottom: 0;
+    line-height: 1.4;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid rgba(33, 61, 128, 0.6);
+    font-size: 16px;
+    color: #213D80;
+}
+.input:focus {
+    outline: none;
+}
+
+.showText {
+    overflow-y: scroll;
+    background: #F9F8FB;
+    padding: 0 10px 10px 10px;
+    max-height: 200px;
+    width: calc(100% - 10px);
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.showText p {
+    font-size: 16px;
+    color: #213D80;
+}
+
+.save {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}

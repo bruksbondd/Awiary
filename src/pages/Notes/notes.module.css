@@ -1,0 +1,36 @@
+.pageDay {
+    display: flex;
+    padding-top: 20px;
+}
+.pageDay:after{
+    content: '';
+    width: 22%;
+    height: 100vh;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -0;
+}
+.pageDayContent {
+    width: 80%;
+    padding-right: 40px;
+}
+
+.editor {
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    width: 75%;
+}
+
+.button {
+    color: #4F68A2!important;
+    background-color: #ffffff!important;
+    border: 1px solid #4F68A2!important;
+    margin-bottom: 10px!important;
+}
+
+.button:hover{
+    opacity: 0.8;
+}

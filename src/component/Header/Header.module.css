@@ -1,0 +1,67 @@
+.headerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    color: rgba(33, 61, 128, 1);
+}
+.headerLogo {
+    font-size: 20px;
+    font-weight: 500;
+}
+.headerDate {
+    margin-left: 50%;
+    font-size: 20px;
+    font-weight: 500;
+}
+.headerNavigationBlock {
+    display: flex;
+}
+.headerNavigation {
+    position: relative;
+    display: flex;
+    border: 1px solid rgba(33, 61, 128, 1);
+    border-radius: 5px;
+    z-index: 1;
+}
+.headerNavigationItem {
+    position: relative;
+    display: block;
+    padding: 1px 12px;
+    line-height: 40px;
+    font-size: 16px;
+    color: rgba(33, 61, 128, 1);
+    text-decoration: none;
+    z-index: 9;
+    transition: all .3s ease-in-out;
+}
+.headerNavigationItem:after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    top: -20px;
+    transition: all .5s ease-in-out;
+
+}
+.headerNavigationItem:hover:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5px;
+    border-radius: 30px;
+    background: rgba(246, 164, 213, 1);
+    z-index: -1;
+    transition: all .5s ease-in-out;
+}
+.headerNavigationItemCenter {
+    border-right: 1px solid rgba(33, 61, 128, 1);
+    border-left: 1px solid rgba(33, 61, 128, 1);
+}
+.headerLogout {
+    margin: 14px 10px 0 30px;
+    z-index: 1;
+}

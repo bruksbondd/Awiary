@@ -1,0 +1,130 @@
+.messages_area {
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    overflow-y: scroll;
+}
+.messages_area_active_editor {
+    height: 70vh;
+}
+
+.messages_area::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.messages_area::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.messages_area::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(122,153,217)),
+    color-stop(0.72, rgb(73,125,189)),
+    color-stop(0.86, rgb(28,58,148)));
+}
+
+
+.message_item {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.class_note {
+    width: 90%;
+    position: relative;
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+.class_awareness {
+    width: 80%;
+    position: relative;
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+.message_item_box {
+    background: #fff;
+}
+
+.message_time {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 10px;
+    margin-right: 30px;
+}
+.message_text {
+    color: #3C3C3C;
+}
+
+.message_text div, .message_text p, .message_text span {
+    position: relative;
+    z-index: 999;
+    color: #3C3C3C;
+}
+
+
+.class_note .message_text::before, .class_awareness .message_text::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    margin-top: 10px;
+    left: 0;
+    margin-left: 20px;
+    border-radius:15px;
+    background: #F6A4D5;
+    z-index: 0;
+}
+
+.class_awareness .message_text::before {
+    background: #B6A6F7;
+}
+
+.message_text h1 {
+    font-weight: 500;
+    margin-top: -3px;
+    margin-left: 20px;
+    position: relative;
+    z-index: 999;
+    color: #3C3C3C;
+}
+
+.message_remote {
+    width: 50px;
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.message_editor {
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: #B1B7D1;
+    transition: all .3s ease-in-out;
+}
+
+.message_remove {
+    cursor: pointer;
+    color: #B1B7D1;
+    transition: all .3s ease-in-out;
+}
+
+.message_editor:hover, .message_remove:hover {
+    transition: all .3s ease-in-out;
+    color: rgba(33, 61, 128, 1);;
+}
+

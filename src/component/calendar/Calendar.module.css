@@ -1,0 +1,255 @@
+/*
+Created by Matej Kovac
+http://moodydev.io
+*/
+
+/* FONT IMPORTS */
+
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+.icon {
+  font-family: "Material Icons", serif;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+}
+
+/* VARIABLES */
+
+:root {
+  --main-color: #1a8fff;
+  --text-color: rgba(33, 61, 128, 1);;
+  --text-color-light: #ccc;
+  --border-color: #eee;
+  --bg-color: #f9f9f9;
+  --neutral-color: #fff;
+}
+
+/* GENERAL */
+
+* {
+  box-sizing: border-box;
+}
+
+#logo {
+  font-size: 175%;
+  text-align: center;
+  color: var(--main-color);
+  line-height: 1;
+}
+
+.icon {
+  padding-right: 0.25em;
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+  margin-top: 5em;
+  max-width: 50em;
+}
+
+/* GRID */
+
+.row {
+  margin: 0;
+  margin-bottom: 1.4%;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.row-middle {
+  align-items: center;
+}
+
+.col {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+}
+
+.colStart {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.colCenter {
+  justify-content: center;
+  text-align: center;
+}
+
+.colEnd {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Calendar */
+
+.calendar {
+  display: block;
+  position: relative;
+  width: 100%;
+  background:transparent;
+  /*border: 1px solid var(--border-color);*/
+}
+
+.header {
+  display: flex;
+  margin-bottom: 0!important;
+  justify-content: space-around;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 160%;
+  padding: 1em 0;
+  color: rgba(33, 61, 128, 1);
+  /*border-bottom: 1px solid var(--border-color);*/
+}
+
+.icon {
+  cursor: pointer;
+  transition: 0.15s ease-out;
+  font-size: 170%;
+}
+
+.icon:hover {
+  transform: scale(1.75);
+  transition: 0.25s ease-out;
+  color: var(--main-color);
+}
+
+.icon:first-of-type {
+  margin-left: 1em;
+}
+
+.icon:last-of-type {
+  margin-right: 1em;
+}
+
+.days {
+  text-transform: capitalize;
+  font-weight: 500;
+  color: var(--text-color);
+  padding: 0.75em 0;
+  font-size: 120%;
+  margin-bottom: 4px!important;
+  /*border-bottom: 1px solid var(--border-color);*/
+}
+
+.cell {
+  position: relative;
+  height: 10vh;
+  border: 2px solid rgba(32,60,128, 0.2);
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(250,250,250, 0.39);
+  transition: 0.25s ease-out;
+}
+
+.cell:hover {
+  background: var(--bg-color);
+  transition: 0.5s ease-out;
+}
+
+.selected {
+  /*border-image: linear-gradient(45deg, #F6A4D5 0%, #C182A8 40%);*/
+  border-image-slice: 1;
+  border-radius: 7px;
+  border: 2px solid rgba(32,60,128, 0.2);
+  border-left: 10px solid #C182A8;
+}
+
+.calendar .body .row:last-child {
+  border-bottom: none;
+}
+
+.cell:last-child {
+  /*border-right: none;*/
+}
+
+.number {
+  position: absolute;
+  font-size: 120.5%;
+  line-height: 1;
+  top: 0.60em;
+  right: 0.60em;
+  font-weight: 700;
+  color: rgba(33, 61, 128, 0.4);
+}
+.selected .number {
+  color: rgba(33, 61, 128, 0.8);
+}
+
+.disabled {
+  border: 2px solid rgba(32,60,128, 0.05);
+  pointer-events: none;
+}
+
+.bg {
+  font-weight: 700;
+  line-height: 1;
+  color: var(--main-color);
+  opacity: 0;
+  font-size: 8em;
+  position: absolute;
+  top: -0.2em;
+  right: -0.05em;
+  transition: 0.25s ease-out;
+  letter-spacing: -0.07em;
+}
+
+.cell:hover .bg,
+.selected .bg {
+  opacity: 0.05;
+  transition: 0.5s ease-in;
+}
+
+.col {
+  flex-grow: 0;
+  flex-basis: calc(100% / 7.6);
+  width: calc(100% / 7.6);
+  /*flex-basis: calc(100% / 7);*/
+  /*width: calc(100% / 7);*/
+}
+
+.activities {
+  width: 100%;
+
+  /*margin-top: 30px;*/
+}
+.allActivity {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 5px;
+}
+.activity svg {
+  width: 9%;
+}
+.notesToday {
+  display: block;
+  margin-left: 40px;
+}
+
+.awarenesToday {
+  display: block;
+  margin-left: 40px;
+}

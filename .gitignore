@@ -5,6 +5,14 @@
 /.pnp
 .pnp.js
 
+# api keys
+.env
+.firebase
+
+.eslintrc
+.idea
+.eslintignore
+.prettierrc
 # testing
 /coverage
 
