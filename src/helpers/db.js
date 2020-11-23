@@ -45,18 +45,13 @@ function readSmile() {
   const userAuth = auth().currentUser.uid
   let newPostKey = db.ref().child('smile').push().key;
 
-  // return db.ref(userAuth+ '/smile/').once('value')
-  //   .then(snapshot => {
-  //     return  snapshot.val()
-  //   });
-
   db.ref(userAuth + '/smile/')
     .on('value', snapshot => {
-      console.log('User data: ', snapshot.val());
+      // console.log('User data: ', snapshot.val());
     });
 
   db.ref(userAuth + '/smile/').orderByChild("todayData").equalTo("26/4/2020").on("child_added", function(data) {
-    console.log("Equal to filter: " + data.val().id);
+    // console.log("Equal to filter: " + data.val().id);
   });
 }
 

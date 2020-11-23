@@ -16,7 +16,7 @@ import {
 } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
-import styles from './SidebarCalendar.module.css';
+import styles from './sidebarCalendar.module.css';
 import { changeFormatDate } from '../../helpers/changeFormatDate';
 import { fetchToDayData } from '../../store/calendarReducer';
 import {

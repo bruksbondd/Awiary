@@ -59,12 +59,6 @@ export const fetchToDayThanks = (): ThunkType => async (dispatch, getState) => {
   const selectedDate = changeFormatDate(getState().calendar.selectedDate, '');
   const userUid = getState().auth.uid;
   try {
-    // const thunk = await db
-    //   .doc(`${userUid}/${selectedDate}/thunks/thunks`)
-    //   .get();
-    // const thought = await db
-    //   .doc(`${userUid}/${selectedDate}/thunks/thought`)
-    //   .get();
 
     const arrThunk = await db
       .collection(`${userUid}/${selectedDate}/thunks/`)

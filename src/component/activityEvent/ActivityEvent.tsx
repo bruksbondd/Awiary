@@ -13,18 +13,20 @@ import {
   removeActivity,
   fetchToDayActivity,
 } from '../../store/activityReducer';
-import { AppStateType } from '../../store';
 
 export const ActivityEvent: FC = () => {
   const dispatch = useDispatch();
+
   const todayActivity = useSelector(
-    (state: AppStateType) => state.activity.todayActivity
+    (state: {active: {todayActivity: any}}) => state.active.todayActivity
   );
-  const activeMeditation = todayActivity.includes('Meditation');
-  const activeYoga = todayActivity.includes('Yoga');
+
+  const activeMeditation =
+    todayActivity && todayActivity.includes('Meditation');
+  const activeYoga = todayActivity && todayActivity.includes('Yoga');
 
   useEffect(() => {
-    dispatch(fetchToDayActivity());
+  dispatch(fetchToDayActivity());
   }, [dispatch]);
 
   const handleActive = (name: string) => {

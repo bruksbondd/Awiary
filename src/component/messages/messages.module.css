@@ -122,10 +122,13 @@
     color: #B1B7D1;
     transition: all .3s ease-in-out;
 }
-
-.date_item {
+.date_item_container {
     margin-left: 10%;
     margin-bottom: 10px;
+    color: #4F68A2;
+
+}
+.date_item {
 }
 
 .message_editor:hover, .message_remove:hover {

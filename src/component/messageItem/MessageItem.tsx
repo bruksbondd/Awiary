@@ -51,15 +51,16 @@ export const MessageItem: FC<PropsMessageItem> = ({ note, previous, isAll }: Pro
   )
   const removeContent = useCallback(
     async (key, type, dateItem) => {
-      console.log('removeContent')
       dispatch(deleteNote(key, type, dateItem))
     },
     [dispatch],
   )
 
+  let DateBlock = <div className={styles.date_item}>{showDate}</div>
+
+
   return (
     <>
-
       <div className={styles.message_item}>
         <div
           className={`${styles.message_item_box} ${
@@ -89,7 +90,7 @@ export const MessageItem: FC<PropsMessageItem> = ({ note, previous, isAll }: Pro
           />
         </div>
       </div>
-      <div className={styles.date_item}>{ isAll && showDay && showDate }</div>
+      <div className={styles.date_item_container}>{ isAll && showDay && DateBlock }</div>
     </>
   )
 }

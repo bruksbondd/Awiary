@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import {
@@ -11,6 +11,7 @@ import styles from './allMessages.module.css'
 import { AppStateType } from '../../store'
 import { fetchToDayThanks } from '../../store/thunksDayReducer'
 import { MessageItem } from '../messageItem/MessageItem'
+import { Spinner } from '../spinner/Spinner'
 
 
 export const AllMessages: FC = () => {
@@ -18,12 +19,13 @@ export const AllMessages: FC = () => {
   const activeFillEditor = useShallowEqualSelector(
     (state: AppStateType) => state.editor.activeFillEditor,
   )
-  const allNotes = useShallowEqualSelector(
+  const allNotes = useSelector(
     (state: AppStateType) => state.notes.allNotes,
   )
-  const runOutOfNotes = useShallowEqualSelector(
+  const runOutOfNotes = useSelector(
     (state: AppStateType) => state.notes.runOutOfNotes,
   )
+
   const inverse = true
   const isAll = true
   const dispatch = useDispatch()
@@ -35,6 +37,13 @@ export const AllMessages: FC = () => {
     dispatch(fetchToDayThanks())
     dispatch(getAllNotes(pathWithSlash))
   }, [dispatch, pathWithSlash])
+
+  if (!allNotes) {
+   return <div role="status">
+     <Spinner/>
+    </div>
+  }
+
   return (
     <div
       className={`${styles.messages_area} ${
@@ -42,22 +51,19 @@ export const AllMessages: FC = () => {
       } `}
       id="scrollableDiv"
       style={{
-        // height: 300,
         overflow: 'auto',
         display: 'flex',
         flexDirection: 'column-reverse',
       }}
     >
-      {/*{loadingNotes ? <div className="spinner-border text-success" role="status">*/}
-      {/*  <Spinner/>*/}
-      {/*</div> : ""}*/}
+
       <InfiniteScroll
         dataLength={allNotes.length}
         next={() => dispatch(getAllNotes(pathWithSlash))}
         style={{ display: 'flex', flexDirection: 'column-reverse' }}
         inverse={inverse}
         hasMore={runOutOfNotes}
-        loader={<h4>Loading...</h4>}
+        loader={<h4><Spinner/>...</h4>}
         scrollableTarget="scrollableDiv"
       >
 

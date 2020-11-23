@@ -1,7 +1,8 @@
-import Header from '../component/Header/Header';
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+
+import Header from '../component/header/Header';
 
 export function PrivateRoute({ component: Component, authenticated, ...rest }) {
   const history = createBrowserHistory();

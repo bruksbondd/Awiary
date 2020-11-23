@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { signin, signInWithGoogle } from '../../helpers/auth';
 import styles from './Sign.module.css';
 import google from './google.svg';
+import { Footer } from '../../component/Footer'
 
 export const Login: FC = () => {
   const [error, setError] = useState('');
@@ -37,6 +38,7 @@ export const Login: FC = () => {
   };
 
   return (
+    <>
     <div className={`container ${styles.wrapper}`}>
       <form
         className={`mt-5 py-5 px-5 ${styles.form_box}`}
@@ -91,6 +93,9 @@ export const Login: FC = () => {
           </Link>
         </p>
       </form>
+      <Footer />
     </div>
+
+      </>
   );
 };

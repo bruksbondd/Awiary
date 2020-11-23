@@ -8,6 +8,7 @@ const initialState = {
   todayNotes: [] as any,
   loadingNotes: true as boolean,
   lastSnapshot: null as number | null,
+
   runOutOfNotes: true as boolean,
   errorNotes: null as null | string,
   content: '' as string,
@@ -83,7 +84,7 @@ const actions = {
         allNotes,
       },
     } as const),
-  setLastNotes: (lastSnapshot: number) =>
+  setLastNotes: (lastSnapshot: number | null) =>
     ({
       type: 'AW/NOTE/SET_LAST_NOTES',
       payload: {
@@ -124,8 +125,6 @@ const actions = {
     } as const),
 }
 
-
-
 export const changeItemDate = (itemDate: string): ThunkType => async (dispatch) => {
   dispatch(actions.setDateItem(itemDate))
 }
@@ -156,29 +155,17 @@ export const getAllNotes = (path: string): ThunkType => async (dispatch, getStat
   const lastSnapshot = getState().notes.lastSnapshot as number | null
   const allNotes = getState().notes.allNotes as []
   const allNotesArray = [] as any
+
   let first = db.collectionGroup('notes')
     .where('uid', '==', userUid)
     .where('type', '==', path)
     .orderBy('id', 'desc')
-    .limit(10)
+    .limit(8)
   if (lastSnapshot) {
     first = first.startAfter(lastSnapshot)
   }
   const snapshot = await first.get()
   const last = snapshot.docs[snapshot.docs.length - 1]
-
-  // const next = db.collectionGroup('notes')
-  //   .where('uid', '==', userUid)
-  //   .where('type', '==', 'note')
-  //   .orderBy('id', 'desc')
-  //   .startAfter(lastSnapshot)
-  //   .limit(10)
-  // const nextSnapshot = await next.get()
-  if (last && last.data().id) {
-    dispatch(actions.setLastNotes(last.data().id))
-  } else if (last === undefined) {
-    dispatch(actions.finishScroll(false))
-  }
 
   snapshot.docs.forEach((doc) => {
     allNotesArray.push({...doc.data(), key: doc.id})
@@ -187,21 +174,28 @@ export const getAllNotes = (path: string): ThunkType => async (dispatch, getStat
   if (last && last.data().id) {
     const newArray: any = allNotes.concat(allNotesArray)
     dispatch(actions.getAllNotes(newArray))
+    dispatch(actions.setLastNotes(last.data().id))
   }
+
+  if (snapshot && last === undefined) {
+    dispatch(actions.finishScroll(false))
+  }
+
 }
 
 export const changeTypePage = (typePage: string): ThunkType => async (dispatch) => {
   dispatch(actions.setTypePage(typePage))
   dispatch(actions.getAllNotes([]))
-  dispatch(actions.setLastNotes(0))
+
   dispatch(getAllNotes(typePage))
+  dispatch(actions.setLastNotes(null))
+  dispatch(actions.finishScroll(true))
 }
 
 export const updateAllNotes = (keyNote: string | undefined = ''): ThunkType => async (
   dispatch,
   getState,
 ) => {
-
   const selectedDate = changeFormatDate(getState().calendar.selectedDate, '')
   const itemData = getState().notes.itemDate as string | ''
   const isDate = itemData ? itemData : selectedDate
@@ -321,30 +315,5 @@ export const getAllNotesMonth = (): ThunkType => async (dispatch, getState) => {
   }
 }
 
-// export const getAllNotes = (): ThunkType => async (dispatch, getState) => {
-//   const userUid = getState().auth.uid
-//   const lastSnapshot = getState().notes.lastSnapshot
-//   const allNotes = getState().notes.allNotes
-//   const allNotesArray = [] as any
-//   const first = db.collectionGroup('notes')
-//     .where('uid', '==', userUid)
-//     .where('type', '==', 'note')
-//     .orderBy('id', 'desc')
-//     .limit(10)
-//   const snapshot = await first.get()
-//   const last = snapshot.docs[snapshot.docs.length - 1]
-//   dispatch(actions.setLastNotes(last.data().id));
-//   snapshot.docs.forEach((doc) => {
-//     allNotesArray.push({...doc.data(), key: doc.id})
-//   })
-//   console.log('test')
-//   if (last && last.data().id) {
-//     const newArray: any = allNotes.concat(allNotesArray)
-//     dispatch(actions.getAllNotes(newArray))
-//   }
-// }
-
-
-type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>;
 type ThunkType = BaseThunkType<ActionsType>;

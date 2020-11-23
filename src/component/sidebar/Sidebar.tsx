@@ -15,7 +15,6 @@ export const Sidebar: FC = () => {
   const thoughtValue = useSelector(
     (state: AppStateType) => state.thunks.thought
   );
-  console.log(thoughtValue)
   return (
     <div className={styles.pageDaySideBar}>
       <SidebarCalendar />

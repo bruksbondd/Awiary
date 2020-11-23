@@ -5,14 +5,17 @@
 /.pnp
 .pnp.js
 
-# api keys
 .env
 .firebase
-
+.firebaserc
 .eslintrc
 .idea
 .eslintignore
 .prettierrc
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
 # testing
 /coverage
 

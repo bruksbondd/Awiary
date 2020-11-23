@@ -24,14 +24,12 @@ export const EditorPanel = () => {
   }, [dispatch])
 
   const handelHideEditor = useCallback((value) => {
-    console.log('handelHideEditor', value)
     dispatch(toggleActiveFillEditor(true))
     dispatch(toggleEditorOldContent(false))
     dispatch(changeEditorContent(''))
   }, [dispatch])
 
   const handelClearEditor = useCallback(() => {
-    console.log('handelClearEditor')
     dispatch(toggleEditorOldContent(false))
     dispatch(changeEditorContent(''))
   }, [dispatch])
