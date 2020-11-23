@@ -5,7 +5,6 @@ export const usePrevious = <T>(value: T): T | undefined => {
   useEffect(() => {
     ref.current = value
   })
-  console.log('dddd', ref.current)
   return ref.current
 }
 

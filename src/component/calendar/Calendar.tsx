@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import {
   format,
@@ -14,11 +14,9 @@ import {
   isFuture,
 } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import styles from './Calendar.module.css';
-// import {Spinner} from '../spinner/Spinner'
-// import ErrorBoundry from '../ErrorBoundry'
 
 import { changeFormatDate } from '../../helpers/changeFormatDate';
 import { fetchToDayData } from '../../store/calendarReducer';
@@ -32,30 +30,20 @@ import {
 import SpaIcon from '@material-ui/icons/Spa';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import useShallowEqualSelector from '../../hooks/useShallowEqualSelector';
+import { AppStateType } from '../../store'
 
-const Calendar = (props) => {
+const Calendar: FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  // const [activity, setActivity] = useState([]);
-
   const history = useHistory();
   const selectedDate = new Date();
-
-  const allActivity = useSelector((state) => state.activity.allActivity);
-  const allNotesMonth = useShallowEqualSelector((state) => state.notes.allNotesMonth);
-
+  const allActivity = useShallowEqualSelector((state: {active: {allActivity: []}} ) => state.active.allActivity);
+  const allNotesMonth = useShallowEqualSelector((state: AppStateType) => state.notes.allNotesMonth);
   const dispatch = useDispatch();
-
-  // const updateActivity = () => {
-  //   if (activity !== allActivity) {
-  //     dispatch(fetchActivity());
-  //     setActivity(allActivity);
-  //   }
-  // };
 
   useEffect(() => {
     dispatch(fetchToDayData());
     dispatch(getAllNotesMonth());
-    return dispatch(fetchActivity());
+    dispatch(fetchActivity());
   }, [dispatch]);
 
   const renderHeader = () => {
@@ -109,42 +97,21 @@ const Calendar = (props) => {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
-        // console.log(allActivity)
-        //         const smileUse = allActivity.map((item) => {
-        //
-        //           let year = item[cloneDay.getFullYear()]
-        //           let mount = year[cloneDay.getMonth() + 1]
-        //           if (year && mount && mount[cloneDay.getDate()]) {
-        //             return Object.values(mount[cloneDay.getDate()]).map((i) => {
-        //               return (
-        //                 <span
-        //                   key={i.key}
-        //                   className={`${styles.smile}`}
-        //                 >
-        // {i}
-        //                   {/*{smiles[i.id-1].img}*/}
-        //                 </span>
-        //               )
-        //             })
-        //           }
-        //         })
 
-        const onDateClick = (day) => {
+
+        const onDateClick = (day: Date | undefined) => {
           history.push(`/day/${changeFormatDate(day)}`);
           dispatch(fetchToDayData(day));
           dispatch(toggleEditorOldContent(false));
           dispatch(changeEditorContent(''));
           dispatch(toggleActiveFillEditor(true));
 
-          // this.setState({
-          //   selectedDate: day
-          // });
         };
         const year = cloneDay.getFullYear();
         const mount = cloneDay.getMonth() + 1;
         const today = cloneDay.getDate();
 
-        const activitiesToday = allActivity.map((item) => {
+        const activitiesToday = allActivity.map((item: any) => {
           return Object.keys(item).map(i => {
             if (i === `${today}${mount}${year}`) {
               const meditation = item[i].activity.includes('Meditation') ? (
@@ -165,27 +132,17 @@ const Calendar = (props) => {
                 </div>
               );
             }
+            return null
           });
         });
 
-        const notesToday = allNotesMonth.filter((item) => {
-          if (
-            item.date === `${today}${mount}${year}` && item.type === 'note'
-          ) {
-            return (
-              item
-            );
-          }
+        const notesToday = allNotesMonth.filter((item: any) => {
+         return item.date === `${today}${mount}${year}` && item.type === 'note' && item
         });
-        const awarenesToday = allNotesMonth.filter((item) => {
-          if (
-            item.date === `${today}${mount}${year}` &&
-            typeof item.content === 'string' && item.type === 'awareness'
-          ) {
-            return (
-              item
-            );
-          }
+        const awarenesToday = allNotesMonth.filter((item: any) => {
+          return item.date === `${today}${mount}${year}` &&
+            typeof item.content === 'string' && item.type === 'awareness' && item
+
         });
 
         days.push(
@@ -200,7 +157,7 @@ const Calendar = (props) => {
               }
               ${isFuture(day) ? `disabled ${styles.disabled}` : ''}
             `}
-            key={day}
+            key={day.toString()}
             onClick={() => onDateClick(cloneDay)}
           >
             <span className={`${styles.number}`}>{formattedDate}</span>
@@ -213,7 +170,7 @@ const Calendar = (props) => {
         day = addDays(day, 1);
       }
       rows.push(
-        <div className={`${styles.row}`} key={day}>
+        <div className={`${styles.row}`} key={day.toString()}>
           {days}
         </div>
       );
@@ -229,14 +186,6 @@ const Calendar = (props) => {
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   };
-
-  // if(this.props.loadingSmiles) {
-  //   return <Spinner/>
-  // }
-
-  // if(this.props.errorSmiles) {
-  //   return <ErrorBoundry />
-  // }
 
   return (
     <div className={`${styles.calendar}`}>

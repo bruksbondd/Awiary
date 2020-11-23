@@ -6,17 +6,16 @@ import {
   createStore,
 } from 'redux';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
-
 import { authReducer } from './authReducer';
 import calendarReducer from './calendarReducer';
 import { notesReducer } from './noteReducer';
 import { editorReducer } from './editorReducer';
-import activityReducer from './activityReducer';
 import { thunksDayReducer } from './thunksDayReducer';
+import { activeReducer } from './activityReducer';
 
 const rootReducer = combineReducers({
+  active: activeReducer,
   thunks: thunksDayReducer,
-  activity: activityReducer,
   editor: editorReducer,
   notes: notesReducer,
   calendar: calendarReducer,

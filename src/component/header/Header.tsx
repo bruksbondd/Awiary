@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import logo from './logo.svg';
 import icon from './signOut.svg';
-import styles from './Header.module.css';
+import styles from './header.module.css';
 
 import { logout } from '../../store/authReducer';
 import { AppStateType } from '../../store';
@@ -26,7 +27,9 @@ const Header = () => {
     <header>
       <div className={styles.headerContainer}>
         <div className={styles.headerLogo}>
-          <Link to="/">Awiary</Link>
+          <Link to="/">
+            <img className={styles.logo} src={logo} alt="Awiary" />
+          </Link>
         </div>
         <div className={styles.headerDate}>
           {data}

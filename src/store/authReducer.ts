@@ -45,16 +45,6 @@ const actions = {
     } as const),
 };
 
-// export const getAuthUserData = (): ThunkType => async (dispatch) => {
-//   auth().onAuthStateChanged((user) => {
-//     if (user) {
-//       dispatch(actions.setAuthUserData(user.uid, user.email, false, true));
-//     } else {
-//       dispatch(actions.setAuthUserData(null, null, false, false));
-//     }
-//   });
-// };
-
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
   auth().onAuthStateChanged((user) => {
     if (user) {
