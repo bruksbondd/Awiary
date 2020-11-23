@@ -9,7 +9,7 @@
 .firebase
 .firebaserc
 .eslintrc
-.idea
+/.idea
 .eslintignore
 .prettierrc
 database.rules.json
@@ -20,7 +20,7 @@ firestore.rules
 /coverage
 
 # production
-/build
+
 
 # misc
 .DS_Store
