@@ -4,10 +4,12 @@ import { changeFormatDate } from '../helpers/changeFormatDate'
 
 const initialState = {
   allNotes: [] as [],
+  allAwareness: [] as [],
   allNotesMonth: [] as Array<{}>,
   todayNotes: [] as any,
   loadingNotes: true as boolean,
-  lastSnapshot: null as number | null,
+  lastSnapshotNote: null as number | null,
+  lastSnapshotAware: null as number | null,
 
   runOutOfNotes: true as boolean,
   errorNotes: null as null | string,
@@ -24,7 +26,9 @@ export const notesReducer = (state = initialState, action: ActionsType) => {
     case 'AW/NOTE/FETCH_NOTES_FAILURE':
     case 'AW/NOTE/FETCH_NOTES_DAY':
     case 'AW/NOTE/FETCH_NOTES_ALL':
+    case 'AW/NOTE/FETCH_AWARENESS_ALL':
     case 'AW/NOTE/SET_LAST_NOTES':
+    case 'AW/NOTE/SET_LAST_AWARENESS':
     case 'AW/NOTE/FINISH_SCROLL_NOTES':
     case 'AW/NOTE/FETCH_NOTES_MONTHS':
     case 'AW/NOTE/SET_DATE_ITEM':
@@ -84,13 +88,31 @@ const actions = {
         allNotes,
       },
     } as const),
-  setLastNotes: (lastSnapshot: number | null) =>
+  getAllAwareness: (allAwareness: []) =>
+  ({
+    type: 'AW/NOTE/FETCH_AWARENESS_ALL',
+    payload: {
+      loadingNotes: false,
+      errorNotes: null,
+      allAwareness,
+    },
+  } as const),
+  setLastNotes: (lastSnapshotNote: number | null) =>
     ({
       type: 'AW/NOTE/SET_LAST_NOTES',
       payload: {
         loadingNotes: false,
         errorNotes: null,
-        lastSnapshot,
+        lastSnapshotNote,
+      },
+    } as const),
+  setLastAwareness: (lastSnapshotAware: number | null) =>
+    ({
+      type: 'AW/NOTE/SET_LAST_AWARENESS',
+      payload: {
+        loadingNotes: false,
+        errorNotes: null,
+        lastSnapshotAware,
       },
     } as const),
   finishScroll: (runOutOfNotes: boolean) =>
@@ -152,10 +174,14 @@ export const getNotesSelectedDay = (): ThunkType => async (
 
 export const getAllNotes = (path: string): ThunkType => async (dispatch, getState) => {
   const userUid = getState().auth.uid
-  const lastSnapshot = getState().notes.lastSnapshot as number | null
+  const lastSnapshotNote = getState().notes.lastSnapshotNote as number | null
+  const lastSnapshotAware = getState().notes.lastSnapshotAware as number | null
+  let lastSnapshot = path === 'note' ? lastSnapshotNote : lastSnapshotAware
   const allNotes = getState().notes.allNotes as []
+  const allAware = getState().notes.allAwareness as []
+  let all = path === 'note' ? allNotes : allAware
   const allNotesArray = [] as any
-
+  console.log(allNotes)
   let first = db.collectionGroup('notes')
     .where('uid', '==', userUid)
     .where('type', '==', path)
@@ -172,23 +198,22 @@ export const getAllNotes = (path: string): ThunkType => async (dispatch, getStat
   })
 
   if (last && last.data().id) {
-    const newArray: any = allNotes.concat(allNotesArray)
-    dispatch(actions.getAllNotes(newArray))
-    dispatch(actions.setLastNotes(last.data().id))
+    const newArray: any = all.concat(allNotesArray)
+    path === 'note' ? dispatch(actions.getAllNotes(newArray)) : dispatch(actions.getAllAwareness(newArray))
+    path === 'note' ? dispatch(actions.setLastNotes(last.data().id)) : dispatch(actions.setLastAwareness(last.data().id))
   }
 
   if (snapshot && last === undefined) {
     dispatch(actions.finishScroll(false))
   }
-
 }
 
 export const changeTypePage = (typePage: string): ThunkType => async (dispatch) => {
   dispatch(actions.setTypePage(typePage))
-  dispatch(actions.getAllNotes([]))
+  // dispatch(actions.getAllNotes([]))
 
   dispatch(getAllNotes(typePage))
-  dispatch(actions.setLastNotes(null))
+  // dispatch(actions.setLastNotes(null))
   dispatch(actions.finishScroll(true))
 }
 
@@ -201,11 +226,12 @@ export const updateAllNotes = (keyNote: string | undefined = ''): ThunkType => a
   const isDate = itemData ? itemData : selectedDate
   const userUid = getState().auth.uid
   const allNotes = getState().notes.allNotes as []
+  const allAwareness = getState().notes.allAwareness as []
 
   const messages = await db.doc(`${userUid}/${isDate}/notes/${keyNote}`).get()
   const newObj: any = {...messages.data(), key: messages.id}
-
-  const newArray: any = allNotes.filter((item: { id: string; key: string }) => {
+  let all = newObj.type === 'note' ? allNotes : allAwareness
+  const newArray: any = all.filter((item: { id: string; key: string }) => {
     if (messages.data() === undefined && item.key === newObj.key) {
       return false
     }
@@ -216,10 +242,8 @@ export const updateAllNotes = (keyNote: string | undefined = ''): ThunkType => a
     }
     return item
   })
-
   if (keyNote) {
-    // const newArray: any = allNotes.concat(allNotesArray)
-    dispatch(actions.getAllNotes(newArray))
+    newObj.type === 'note' ? dispatch(actions.getAllNotes(newArray)) : dispatch(actions.getAllAwareness(newArray))
   }
 }
 

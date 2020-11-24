@@ -12,11 +12,15 @@ export const Messages = () => {
   return (
     <div className={`${styles.messages_area} ${!activeFillEditor
       ? styles.messages_area_active_editor
-      : ''} `}>
-      {/*{loadingNotes ? <div className="spinner-border text-success" role="status">*/}
-      {/*  <Spinner/>*/}
-      {/*</div> : ""}*/}
-      {content.map((note: { id: number; type: string; content: string; key: string; date: string;}) => {
+      : ''} `}
+    >
+      {content.map((note: {
+        id: number;
+        type: string;
+        content: string;
+        key: string;
+        date: string;
+      }) => {
         return (
           <MessageItem
             key={note.id}
@@ -27,5 +31,3 @@ export const Messages = () => {
     </div>
   )
 }
-
-

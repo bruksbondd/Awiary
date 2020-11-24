@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import {
@@ -19,31 +19,28 @@ export const AllMessages: FC = () => {
   const activeFillEditor = useShallowEqualSelector(
     (state: AppStateType) => state.editor.activeFillEditor,
   )
-  const allNotes = useSelector(
+  const allNotes = useShallowEqualSelector(
     (state: AppStateType) => state.notes.allNotes,
   )
-  const runOutOfNotes = useSelector(
+  const allAwareness = useShallowEqualSelector(
+    (state: AppStateType) => state.notes.allAwareness,
+  )
+  const runOutOfNotes = useShallowEqualSelector(
     (state: AppStateType) => state.notes.runOutOfNotes,
   )
-
   const inverse = true
   const isAll = true
   const dispatch = useDispatch()
   const useHistory = useLocation();
   const pathWithSlash = useHistory.pathname.substring(1)
+  let allItems = pathWithSlash === 'note' ? allNotes : allAwareness
+
 
   useEffect(() => {
     dispatch(getNotesSelectedDay())
     dispatch(fetchToDayThanks())
     dispatch(getAllNotes(pathWithSlash))
   }, [dispatch, pathWithSlash])
-
-  if (!allNotes) {
-   return <div role="status">
-     <Spinner/>
-    </div>
-  }
-
   return (
     <div
       className={`${styles.messages_area} ${
@@ -58,19 +55,26 @@ export const AllMessages: FC = () => {
     >
 
       <InfiniteScroll
-        dataLength={allNotes.length}
+        dataLength={allItems.length}
         next={() => dispatch(getAllNotes(pathWithSlash))}
         style={{ display: 'flex', flexDirection: 'column-reverse' }}
         inverse={inverse}
         hasMore={runOutOfNotes}
-        loader={<h4><Spinner/>...</h4>}
+        loader={<h4><Spinner/></h4>}
         scrollableTarget="scrollableDiv"
       >
 
-      { allNotes && allNotes.map(
-        // eslint-disable-next-line max-len
-        (note: { id: number; type: string; content: string; key: string; date: string; createdAt: {seconds: number} }, index) => {
-          const previous = allNotes[index + 1]
+      { allItems && allItems.map(
+        (note:
+           {
+             id: number;
+             type: string;
+             content: string;
+             key: string;
+             date: string;
+             createdAt: {seconds: number}
+           }, index) => {
+          const previous = allItems[index + 1]
           return (
             <MessageItem
               key={note.key}
