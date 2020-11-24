@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/Awiary/static/css/main.0df21ee0.chunk.css",
+    "main.js": "/Awiary/static/js/main.3eb8adb5.chunk.js",
+    "main.js.map": "/Awiary/static/js/main.3eb8adb5.chunk.js.map",
+    "runtime-main.js": "/Awiary/static/js/runtime-main.07728bc2.js",
+    "runtime-main.js.map": "/Awiary/static/js/runtime-main.07728bc2.js.map",
+    "static/css/2.4708e45d.chunk.css": "/Awiary/static/css/2.4708e45d.chunk.css",
+    "static/js/2.02fcfbfd.chunk.js": "/Awiary/static/js/2.02fcfbfd.chunk.js",
+    "static/js/2.02fcfbfd.chunk.js.map": "/Awiary/static/js/2.02fcfbfd.chunk.js.map",
+    "index.html": "/Awiary/index.html",
+    "precache-manifest.06218c6de6c0dc8d89b63c18db37130f.js": "/Awiary/precache-manifest.06218c6de6c0dc8d89b63c18db37130f.js",
+    "service-worker.js": "/Awiary/service-worker.js",
+    "static/css/2.4708e45d.chunk.css.map": "/Awiary/static/css/2.4708e45d.chunk.css.map",
+    "static/css/main.0df21ee0.chunk.css.map": "/Awiary/static/css/main.0df21ee0.chunk.css.map",
+    "static/js/2.02fcfbfd.chunk.js.LICENSE.txt": "/Awiary/static/js/2.02fcfbfd.chunk.js.LICENSE.txt",
+    "static/media/google.svg": "/Awiary/static/media/google.1acf3b9c.svg",
+    "static/media/logo.svg": "/Awiary/static/media/logo.cb130adb.svg",
+    "static/media/signOut.svg": "/Awiary/static/media/signOut.05fcdd59.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.07728bc2.js",
+    "static/css/2.4708e45d.chunk.css",
+    "static/js/2.02fcfbfd.chunk.js",
+    "static/css/main.0df21ee0.chunk.css",
+    "static/js/main.3eb8adb5.chunk.js"
+  ]
+}
