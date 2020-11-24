@@ -14,7 +14,7 @@ import { MessageItem } from '../messageItem/MessageItem'
 import { Spinner } from '../spinner/Spinner'
 
 
-export const AllMessages: FC = () => {
+export const AllMessages: FC = (props) => {
 
   const activeFillEditor = useShallowEqualSelector(
     (state: AppStateType) => state.editor.activeFillEditor,
