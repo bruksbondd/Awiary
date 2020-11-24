@@ -14,7 +14,7 @@ import { changeTypePage } from '../../store/noteReducer'
 const Header = () => {
   const dispatch = useDispatch();
   const selectedDate = useSelector(
-    (state: AppStateType) => state.calendar.selectedDate
+    (state: AppStateType) => state.calendar.selectedDate,
   );
 
   const data = selectedDate ? changeFormatDate(selectedDate, '/') : changeFormatDate(new Date(), '/')

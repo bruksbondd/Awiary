@@ -1,13 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './day.module.css';
 import { AppStateType } from '../../store';
 import { getNotesSelectedDay } from '../../store/noteReducer';
 import { Note } from '../../component/note/Note';
 import { fetchToDayThanks } from '../../store/thunksDayReducer';
-import { Sidebar } from "../../component/sidebar/Sidebar";
-
-import styles from './day.module.css';
+import {Sidebar} from "../../component/sidebar/Sidebar";
 
 export const Day: FC = () => {
   const selectedDate = useSelector(
