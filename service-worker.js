@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/awiary/precache-manifest.777c447f51ac7a08291b111a93f209b4.js"
+  "/awiary/precache-manifest.2627e5f033df865624aa38bba9805067.js"
 );
 
 self.addEventListener('message', (event) => {
