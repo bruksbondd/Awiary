@@ -1,8 +1,8 @@
 {
-  "homepage": "http://bruksbondd.github.io/Awiary",
   "name": "awiary",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
+  "homepage": "https://bruksbondd.github.io/awiary/",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -36,8 +36,6 @@
     "suneditor-react": "^2.13.2"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -45,7 +43,9 @@
     "lint": "yarn typescript && yarn lint:ts",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
     "prettier:ts": "prettier-eslint --list-different $PWD/'src/**/*.{ts,tsx}'; prettier-eslint --write $PWD/'src/**/*.{ts,tsx}'",
-    "typescript": "tsc"
+    "typescript": "tsc",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -15,6 +15,7 @@ import { Spinner } from '../spinner/Spinner'
 
 
 export const AllMessages: FC = (props) => {
+  const [elHeight, setElHeight] = useState<boolean>(true)
 
   const activeFillEditor = useShallowEqualSelector(
     (state: AppStateType) => state.editor.activeFillEditor,
@@ -28,6 +29,9 @@ export const AllMessages: FC = (props) => {
   const runOutOfNotes = useShallowEqualSelector(
     (state: AppStateType) => state.notes.runOutOfNotes,
   )
+
+  const overlayEl = useRef() as MutableRefObject<HTMLDivElement>;
+  const childrenOverlayEl = useRef() as MutableRefObject<HTMLDivElement>;
   const inverse = true
   const isAll = true
   const dispatch = useDispatch()
@@ -41,19 +45,30 @@ export const AllMessages: FC = (props) => {
     dispatch(fetchToDayThanks())
     dispatch(getAllNotes(pathWithSlash))
   }, [dispatch, pathWithSlash])
+
+  useEffect(() => {
+    setElHeight(overlayEl.current.clientHeight > childrenOverlayEl.current.clientHeight)
+  }, [allNotes, allAwareness, overlayEl, childrenOverlayEl])
+
   return (
     <div
-      className={`${styles.messages_area} ${
-        !activeFillEditor ? styles.messages_area_active_editor : ''
-      } `}
+      ref={overlayEl}
+      className={`${styles.messages_area} 
+      ${!activeFillEditor ? styles.messages_area_active_editor : ''} 
+      ${elHeight ? styles.column : styles.column_reverse}
+      `}
       id="scrollableDiv"
       style={{
         overflow: 'auto',
         display: 'flex',
-        flexDirection: 'column-reverse',
+        // flexDirection: 'column-reverse',
       }}
     >
+      <div
 
+        ref={childrenOverlayEl}
+
+      >
       <InfiniteScroll
         dataLength={allItems.length}
         next={() => dispatch(getAllNotes(pathWithSlash))}
@@ -86,6 +101,7 @@ export const AllMessages: FC = (props) => {
         },
       )}
       </InfiniteScroll>
+      </div>
     </div>
   )
 }

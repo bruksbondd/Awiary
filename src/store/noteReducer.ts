@@ -10,7 +10,6 @@ const initialState = {
   loadingNotes: true as boolean,
   lastSnapshotNote: null as number | null,
   lastSnapshotAware: null as number | null,
-
   runOutOfNotes: true as boolean,
   errorNotes: null as null | string,
   content: '' as string,
@@ -33,6 +32,7 @@ export const notesReducer = (state = initialState, action: ActionsType) => {
     case 'AW/NOTE/FETCH_NOTES_MONTHS':
     case 'AW/NOTE/SET_DATE_ITEM':
     case 'AW/NOTE/SET_TYPE_PAGE':
+    case 'AW/NOTE/LOGOUT_AND_CLEAN':
       return {
         ...state,
         ...action.payload,
@@ -145,6 +145,26 @@ const actions = {
         typePage,
       },
     } as const),
+  logoutAndClean: () =>
+    ({
+      type: 'AW/NOTE/LOGOUT_AND_CLEAN',
+      payload: {
+        allNotes: [] as [],
+        allAwareness: [] as [],
+        allNotesMonth: [] as Array<{}>,
+        todayNotes: [] as any,
+        loadingNotes: true as boolean,
+        lastSnapshotNote: null as number | null,
+        lastSnapshotAware: null as number | null,
+        runOutOfNotes: true as boolean,
+        errorNotes: null as null | string,
+        content: '' as string,
+        itemDate: '' as string,
+        key: null as number | null,
+        dataNewDay: null as null | number,
+        typePage: 'note' as string,
+      },
+    } as const),
 }
 
 export const changeItemDate = (itemDate: string): ThunkType => async (dispatch) => {
@@ -181,12 +201,12 @@ export const getAllNotes = (path: string): ThunkType => async (dispatch, getStat
   const allAware = getState().notes.allAwareness as []
   let all = path === 'note' ? allNotes : allAware
   const allNotesArray = [] as any
-  console.log(allNotes)
+
   let first = db.collectionGroup('notes')
     .where('uid', '==', userUid)
     .where('type', '==', path)
     .orderBy('id', 'desc')
-    .limit(8)
+    .limit(10)
   if (lastSnapshot) {
     first = first.startAfter(lastSnapshot)
   }
@@ -337,6 +357,10 @@ export const getAllNotesMonth = (): ThunkType => async (dispatch, getState) => {
   } catch (e) {
     console.log(e)
   }
+}
+
+export const resetNotes = (): ThunkType => async (dispatch) => {
+  dispatch(actions.logoutAndClean())
 }
 
 type ActionsType = InferActionsTypes<typeof actions>;
