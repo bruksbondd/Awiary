@@ -1,6 +1,7 @@
 import { auth, db, setupPresence } from '../services/firebase';
 
 import { BaseThunkType, InferActionsTypes } from './index';
+import { resetNotes } from './noteReducer'
 
 const initialState = {
   uid: '' as string,
@@ -75,10 +76,12 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
 }
 
 export const logout = (): ThunkType => async (dispatch) => {
+
   auth()
     .signOut()
     .then(() => {
       dispatch(actions.setAuthUserData('', null, null, null, false, false));
+      dispatch(resetNotes())
     })
     .catch((error) => {
       console.log(error);
